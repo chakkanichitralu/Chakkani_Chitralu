@@ -1,0 +1,1 @@
+Replace the referenced image files in this folder with your own selected images.
