@@ -1,0 +1,4 @@
+Image edges were updated to blend into the dark background.
+Images now use soft radial edge fading, reduced opacity, no hard borders,
+and subtle shadow/gradient treatment. Replace your images in the existing
+section folders without changing the HTML.
