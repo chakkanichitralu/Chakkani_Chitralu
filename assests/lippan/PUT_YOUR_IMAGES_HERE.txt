@@ -1,0 +1,4 @@
+Replace the referenced image files in this folder with your own selected images.
+image-01.jpg = main featured photo (Home + Craft page top card)
+image-02.jpg, image-03.jpg, image-04.jpg = extra pieces shown in the
+"More from each collection" scrolling strip on craft.html.
