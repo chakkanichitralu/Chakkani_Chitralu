@@ -1,780 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chakkani Chitralu — Handcrafted Lippan Art, Murals &amp; Mandala Design</title>
-<meta name="description" content="Chakkani Chitralu by Dommeti Chaitanya — custom Lippan mud &amp; mirror art, handpainted murals, mandala &amp; resin artworks, wall hangings and bulk return gifts, made to your walls and your story.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,450;0,9..144,600;0,9..144,700;1,9..144,450;1,9..144,600&family=Work+Sans:wght@300;400;500;600&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
-<style>
-
-  :root{
-    --bg: #1c1a22;
-    --bg-alt: #221e26;
-    --bg-card: #262029;
-    --clay: #c9873c;
-    --clay-soft: #e0aa66;
-    --clay-deep: #7c451f;
-    --maroon: #8a3230;
-    --mirror: #eae7df;
-    --paper: #f1ead9;
-    --muted: #a89a86;
-    --line: rgba(234,231,223,0.14);
-    --radius: 2px;
-  }
-
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--paper);
-    font-family:'Work Sans', sans-serif;
-    font-weight:400;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.001ms !important; animation-iteration-count:1 !important; scroll-behavior:auto !important; transition-duration:0.001ms !important; }
-  }
-
-  h1,h2,h3,h4{
-    font-family:'Fraunces', serif;
-    font-weight:600;
-    letter-spacing:-0.01em;
-    margin:0;
-  }
-
-  .script{
-    font-family:'Caveat', cursive;
-    color:var(--clay-soft);
-  }
-
-  a{ color:inherit; }
-  img{ max-width:100%; display:block; }
-  section{ position:relative; }
-
-  .wrap{
-    max-width:1180px;
-    margin:0 auto;
-    padding:0 32px;
-  }
-  @media (max-width:640px){ .wrap{ padding:0 20px; } }
-
-  :focus-visible{
-    outline:2px solid var(--clay-soft);
-    outline-offset:3px;
-  }
-
-  /* texture */
-  .grain{
-    position:fixed; inset:0; pointer-events:none; z-index:200;
-    opacity:0.05; mix-blend-mode:overlay;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* ---------- NAV ---------- */
-  header.site{
-    position:fixed; top:0; left:0; right:0; z-index:100;
-    background:linear-gradient(to bottom, rgba(28,26,34,0.96), rgba(28,26,34,0.75) 70%, transparent);
-    padding:20px 0;
-    transition:padding .3s ease, background .3s ease;
-  }
-  header.site.scrolled{
-    padding:12px 0;
-    background:rgba(24,22,29,0.92);
-    backdrop-filter:blur(8px);
-    border-bottom:1px solid var(--line);
-  }
-  .nav-row{ display:flex; align-items:center; justify-content:space-between; }
-  .brand{ display:flex; align-items:center; gap:10px; font-family:'Fraunces',serif; font-size:1.25rem; font-weight:600; color:var(--paper); text-decoration:none; }
-  .brand .mark{ width:26px; height:26px; flex:none; }
-  .brand small{ display:block; font-family:'Work Sans',sans-serif; font-weight:400; font-size:0.6rem; letter-spacing:0.16em; text-transform:uppercase; color:var(--muted); }
-
-  nav.links{ display:flex; gap:30px; list-style:none; margin:0; padding:0; }
-  nav.links a{
-    text-decoration:none; color:var(--muted); font-size:0.86rem; letter-spacing:0.03em;
-    padding-bottom:4px; border-bottom:1px solid transparent; transition:color .2s, border-color .2s;
-  }
-  nav.links a:hover{ color:var(--paper); border-color:var(--clay); }
-
-  .nav-cta{
-    display:inline-block; padding:9px 20px; border:1px solid var(--clay);
-    color:var(--clay-soft); text-decoration:none; font-size:0.82rem; letter-spacing:0.03em;
-    transition:background .2s, color .2s;
-  }
-  .nav-cta:hover{ background:var(--clay); color:#1c1a22; }
-
-  .nav-toggle{ display:none; background:none; border:1px solid var(--line); color:var(--paper); width:40px; height:40px; }
-
-  @media (max-width:860px){
-    nav.links{
-      position:fixed; inset:0 0 0 auto; width:min(78vw,320px); height:100vh;
-      background:#1a171f; flex-direction:column; padding:100px 32px; gap:26px;
-      transform:translateX(100%); transition:transform .35s ease; border-left:1px solid var(--line);
-    }
-    nav.links.open{ transform:translateX(0); }
-    nav.links a{ font-size:1.05rem; }
-    .nav-cta{ display:none; }
-    .nav-toggle{ display:block; }
-  }
-
-  /* ---------- HERO ---------- */
-  .hero{
-    min-height:100svh;
-    display:flex; align-items:center;
-    padding:140px 0 90px;
-    background:
-      radial-gradient(ellipse 900px 500px at 82% 18%, rgba(201,135,60,0.16), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 10% 90%, rgba(138,50,48,0.14), transparent 60%),
-      var(--bg);
-    overflow:hidden;
-  }
-  .hero-grid{
-    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
-  }
-  @media (max-width:940px){ .hero-grid{ grid-template-columns:1fr; } .hero-art{ order:-1; } }
-
-  .eyebrow{
-    display:flex; align-items:center; gap:10px;
-    font-size:0.74rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--clay-soft);
-    margin-bottom:22px;
-  }
-  .eyebrow::before{ content:""; width:26px; height:1px; background:var(--clay-soft); }
-
-  .hero h1{
-    font-size:clamp(2.5rem, 5.4vw, 4.1rem);
-    line-height:1.04;
-    color:var(--paper);
-  }
-  .hero h1 em{
-    font-style:italic; color:var(--clay-soft); font-weight:450;
-  }
-  .hero p.lede{
-    margin:26px 0 34px; max-width:46ch; color:var(--muted); font-size:1.08rem; font-weight:300;
-  }
-  .hero-ctas{ display:flex; gap:16px; flex-wrap:wrap; }
-  .btn{
-    display:inline-flex; align-items:center; gap:10px; padding:15px 28px;
-    text-decoration:none; font-size:0.92rem; letter-spacing:0.02em; border:1px solid transparent;
-    transition:transform .2s ease, background .2s ease, border-color .2s ease, color .2s ease;
-  }
-  .btn-primary{ background:var(--clay); color:#1c1a22; font-weight:500; }
-  .btn-primary:hover{ background:var(--clay-soft); transform:translateY(-2px); }
-  .btn-ghost{ border-color:var(--line); color:var(--paper); }
-  .btn-ghost:hover{ border-color:var(--clay-soft); color:var(--clay-soft); }
-
-  .hero-stats{ display:flex; gap:34px; margin-top:52px; flex-wrap:wrap; }
-  .hero-stats div{ border-left:1px solid var(--line); padding-left:14px; }
-  .hero-stats strong{ display:block; font-family:'Fraunces',serif; font-size:1.5rem; color:var(--paper); font-weight:600; }
-  .hero-stats span{ font-size:0.76rem; color:var(--muted); letter-spacing:0.02em; }
-
-  /* signature mirror-mosaic art */
-  .hero-art{ position:relative; aspect-ratio:1/1; }
-  .mosaic-svg{ width:100%; height:100%; }
-  .glint{ animation:glint 5.5s ease-in-out infinite; transform-origin:center; }
-  .glint2{ animation:glint 5.5s ease-in-out infinite 1.4s; transform-origin:center; }
-  .glint3{ animation:glint 5.5s ease-in-out infinite 2.8s; transform-origin:center; }
-  @keyframes glint{
-    0%, 100%{ opacity:0.35; }
-    50%{ opacity:1; }
-  }
-  .spin-slow{ animation:spin 90s linear infinite; transform-origin:center; }
-  @keyframes spin{ to{ transform:rotate(360deg); } }
-
-  /* ---------- SECTION HEADERS ---------- */
-  .section-head{ max-width:640px; margin-bottom:56px; }
-  .section-head .eyebrow{ margin-bottom:16px; }
-  .section-head h2{ font-size:clamp(1.9rem,3.4vw,2.6rem); color:var(--paper); }
-  .section-head p{ color:var(--muted); margin-top:16px; font-weight:300; font-size:1.02rem; }
-  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
-  .section-head.center .eyebrow{ justify-content:center; }
-  .section-head.center .eyebrow::before{ display:none; }
-
-  section.pad{ padding:110px 0; }
-  @media (max-width:640px){ section.pad{ padding:74px 0; } }
-
-  .rule{ height:1px; background:var(--line); border:none; margin:0; }
-
-  /* ---------- SERVICES ---------- */
-  .services-grid{
-    display:grid; grid-template-columns:repeat(3,1fr); gap:1px;
-    background:var(--line); border:1px solid var(--line);
-  }
-  @media (max-width:900px){ .services-grid{ grid-template-columns:repeat(2,1fr); } }
-  @media (max-width:600px){ .services-grid{ grid-template-columns:1fr; } }
-
-  .service-card{
-    background:var(--bg-alt); padding:38px 30px; min-height:250px;
-    display:flex; flex-direction:column; gap:16px;
-    transition:background .25s ease;
-  }
-  .service-card:hover{ background:var(--bg-card); }
-  .service-card .icon{ width:44px; height:44px; color:var(--clay-soft); }
-  .service-card h3{ font-size:1.18rem; color:var(--paper); font-weight:600; }
-  .service-card p{ color:var(--muted); font-size:0.92rem; font-weight:300; margin:0; }
-  .service-card .tag{ margin-top:auto; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--clay); }
-
-  /* collab strip */
-  .collab{
-    margin-top:1px; background:linear-gradient(100deg, var(--clay-deep), var(--maroon));
-    padding:44px 40px; display:flex; align-items:center; justify-content:space-between; gap:24px; flex-wrap:wrap;
-    border:1px solid var(--line); border-top:none;
-  }
-  .collab h4{ font-size:1.3rem; color:var(--paper); max-width:32ch; }
-  .collab p{ color:rgba(241,234,217,0.8); font-weight:300; margin:8px 0 0; max-width:44ch; }
-
-  /* ---------- PROCESS ---------- */
-  .process-strip{ display:grid; grid-template-columns:repeat(4,1fr); gap:0; position:relative; }
-  @media (max-width:820px){ .process-strip{ grid-template-columns:1fr; gap:36px; } }
-  .process-step{ padding:0 26px 0 0; position:relative; }
-  .process-step:not(:last-child)::after{
-    content:""; position:absolute; top:24px; right:-2px; width:calc(100% - 26px); height:1px; background:var(--line);
-  }
-  @media (max-width:820px){ .process-step:not(:last-child)::after{ display:none; } }
-  .process-num{ font-family:'Fraunces',serif; font-size:0.85rem; color:var(--clay-soft); letter-spacing:0.05em; margin-bottom:18px; }
-  .process-step h3{ font-size:1.15rem; color:var(--paper); margin-bottom:10px; }
-  .process-step p{ color:var(--muted); font-size:0.92rem; font-weight:300; }
-
-  /* ---------- ABOUT ---------- */
-  .about-grid{ display:grid; grid-template-columns:0.85fr 1.15fr; gap:64px; align-items:center; }
-  @media (max-width:860px){ .about-grid{ grid-template-columns:1fr; } }
-  .about-frame{ position:relative; aspect-ratio:4/5; border:1px solid var(--line); }
-  .about-quote{
-    margin-top:28px; font-family:'Caveat', cursive; font-size:1.5rem; color:var(--clay-soft); line-height:1.4;
-  }
-  .about-copy p{ color:var(--muted); font-weight:300; font-size:1.02rem; margin:0 0 18px; }
-  .about-copy p:last-of-type{ margin-bottom:0; }
-  .about-copy strong{ color:var(--paper); font-weight:500; }
-
-  .signature-line{ display:flex; align-items:center; gap:14px; margin-top:32px; }
-  .signature-line .sig{ font-family:'Caveat', cursive; font-size:1.9rem; color:var(--paper); }
-  .signature-line span{ font-size:0.78rem; color:var(--muted); letter-spacing:0.04em; }
-
-  /* ---------- GALLERY (pattern swatches, no stock photos) ---------- */
-  .gallery-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
-  @media (max-width:820px){ .gallery-grid{ grid-template-columns:repeat(2,1fr); } }
-  .swatch{ aspect-ratio:1; border:1px solid var(--line); overflow:hidden; position:relative; }
-  .swatch svg{ width:100%; height:100%; }
-  .swatch figcaption{
-    position:absolute; left:0; right:0; bottom:0; padding:10px 12px;
-    font-size:0.72rem; letter-spacing:0.04em; color:var(--paper);
-    background:linear-gradient(to top, rgba(20,18,24,0.85), transparent);
-  }
-  .gallery-note{ margin-top:22px; color:var(--muted); font-size:0.86rem; font-weight:300; }
-
-  /* ---------- TESTIMONIAL / GIFT STRIP ---------- */
-  .strip-cta{
-    padding:90px 0; text-align:center;
-    background:
-      radial-gradient(ellipse 700px 400px at 50% 0%, rgba(201,135,60,0.12), transparent 65%),
-      var(--bg-alt);
-    border-top:1px solid var(--line); border-bottom:1px solid var(--line);
-  }
-  .strip-cta h2{ font-size:clamp(1.9rem,4vw,2.7rem); max-width:20ch; margin:0 auto 20px; color:var(--paper); }
-  .strip-cta p{ color:var(--muted); max-width:52ch; margin:0 auto 34px; font-weight:300; }
-
-  /* ---------- CONTACT ---------- */
-  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:64px; }
-  @media (max-width:860px){ .contact-grid{ grid-template-columns:1fr; gap:44px; } }
-  .contact-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:22px; }
-  .contact-list li{ display:flex; gap:16px; align-items:flex-start; border-bottom:1px solid var(--line); padding-bottom:20px; }
-  .contact-list .ic{ width:20px; height:20px; color:var(--clay-soft); flex:none; margin-top:3px; }
-  .contact-list strong{ display:block; color:var(--paper); font-weight:500; margin-bottom:3px; }
-  .contact-list span, .contact-list a{ color:var(--muted); font-size:0.92rem; text-decoration:none; }
-  .contact-list a:hover{ color:var(--clay-soft); }
-
-  form.enquire{ display:flex; flex-direction:column; gap:18px; }
-  .field{ display:flex; flex-direction:column; gap:8px; }
-  .field label{ font-size:0.76rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); }
-  .field input, .field select, .field textarea{
-    background:var(--bg-alt); border:1px solid var(--line); color:var(--paper);
-    padding:13px 14px; font-family:'Work Sans',sans-serif; font-size:0.95rem;
-  }
-  .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--clay-soft); }
-  .field textarea{ resize:vertical; min-height:100px; }
-  .form-note{ font-size:0.8rem; color:var(--muted); margin-top:-4px; }
-  .form-msg{ font-size:0.86rem; color:var(--clay-soft); min-height:1.2em; }
-
-  /* ---------- FOOTER ---------- */
-  footer{ padding:56px 0 34px; border-top:1px solid var(--line); }
-  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
-  .footer-row .brand{ font-size:1.05rem; }
-  .footer-links{ display:flex; gap:26px; list-style:none; margin:0; padding:0; }
-  .footer-links a{ color:var(--muted); text-decoration:none; font-size:0.86rem; }
-  .footer-links a:hover{ color:var(--clay-soft); }
-  .footer-bottom{ margin-top:34px; padding-top:22px; border-top:1px solid var(--line); display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; font-size:0.76rem; color:var(--muted); }
-
-  ::selection{ background:var(--clay); color:#1c1a22; }
-</style>
-</head>
-<body>
-
-<div class="grain" aria-hidden="true"></div>
-
-<header class="site" id="siteHeader">
-  <div class="wrap nav-row">
-    <a href="#top" class="brand">
-      <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <circle cx="20" cy="20" r="18" stroke="#c9873c" stroke-width="1.3"/>
-        <circle cx="20" cy="20" r="7" fill="#eae7df"/>
-        <circle cx="12" cy="14" r="3.2" fill="#8a3230"/>
-        <circle cx="29" cy="15" r="2.4" fill="#eae7df" opacity="0.85"/>
-        <circle cx="27" cy="28" r="3" fill="#c9873c"/>
-      </svg>
-      Chakkani Chitralu <small>Dommeti Chaitanya · Studio</small>
-    </a>
-    <nav class="links" id="navLinks">
-      <a href="#craft">Craft</a>
-      <a href="#process">Process</a>
-      <a href="#about">Artist</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#contact">Contact</a>
-    </nav>
-    <a href="#contact" class="nav-cta">Start a commission</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="navLinks">
-      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-  </div>
-</header>
-
-<main id="top">
-
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <div class="eyebrow">Art Studio · Hyderabad & Vijayawada</div>
-        <h1>Your walls, <em>set in mud, mirror &amp; colour.</em></h1>
-        <p class="lede">Chakkani Chitralu brings handcrafted elegance to homes and commercial spaces — traditional Lippan art, handpainted murals, mandala &amp; resin work, made to your wall's exact size and story by artist Dommeti Chaitanya.</p>
-        <div class="hero-ctas">
-          <a href="https://wa.me/918897343720?text=Hello!%20" class="btn btn-primary" target="_blank" rel="noopener">WhatsApp the studio</a>
-          <a href="#craft" class="btn btn-ghost">See the craft</a>
-        </div>
-        <div class="hero-stats">
-          <div><strong>5+</strong><span>Craft disciplines</span></div>
-          <div><strong>100%</strong><span>Made to your size</span></div>
-          <div><strong>1:1</strong><span>Artist-led, every piece</span></div>
-        </div>
-      </div>
-
-      <div class="hero-art" aria-hidden="true">
-        <svg class="mosaic-svg" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <radialGradient id="mirrorGrad" cx="35%" cy="30%" r="75%">
-              <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
-              <stop offset="45%" stop-color="#cfd0cf" stop-opacity="0.55"/>
-              <stop offset="100%" stop-color="#7d7d7d" stop-opacity="0.15"/>
-            </radialGradient>
-            <linearGradient id="clayBlob" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stop-color="#7c451f"/>
-              <stop offset="100%" stop-color="#3c2313"/>
-            </linearGradient>
-          </defs>
-
-          <g class="spin-slow">
-            <circle cx="240" cy="240" r="190" fill="none" stroke="#c9873c" stroke-width="0.6" stroke-dasharray="1 9"/>
-          </g>
-
-          <!-- organic clay motif -->
-          <path d="M240 70 C320 70 380 130 390 210 C400 300 340 380 250 400 C160 420 90 360 80 270 C70 180 140 90 240 70 Z"
-                fill="url(#clayBlob)" opacity="0.9"/>
-
-          <!-- vine / tendril linework, evokes lippan relief -->
-          <path d="M120 260 C 160 200, 220 320, 260 220 S 360 160, 380 250" stroke="#e0aa66" stroke-width="2" fill="none" opacity="0.55"/>
-          <path d="M110 190 C 170 230, 200 150, 260 190 S 340 260, 370 180" stroke="#8a3230" stroke-width="1.6" fill="none" opacity="0.5"/>
-
-          <!-- mirror clusters -->
-          <g>
-            <circle class="glint" cx="200" cy="190" r="26" fill="url(#mirrorGrad)"/>
-            <circle class="glint2" cx="255" cy="150" r="14" fill="url(#mirrorGrad)"/>
-            <circle class="glint3" cx="300" cy="205" r="19" fill="url(#mirrorGrad)"/>
-            <circle class="glint" cx="175" cy="270" r="12" fill="url(#mirrorGrad)"/>
-            <circle class="glint2" cx="250" cy="300" r="30" fill="url(#mirrorGrad)"/>
-            <circle class="glint3" cx="320" cy="290" r="10" fill="url(#mirrorGrad)"/>
-            <circle class="glint" cx="150" cy="220" r="8" fill="url(#mirrorGrad)"/>
-            <circle class="glint2" cx="305" cy="150" r="7" fill="url(#mirrorGrad)"/>
-          </g>
-
-          <!-- fine border dots, kutch-style trim -->
-          <g fill="#f1ead9" opacity="0.6">
-            <circle cx="240" cy="86" r="2.4"/><circle cx="280" cy="94" r="2.4"/><circle cx="315" cy="112" r="2.4"/>
-            <circle cx="200" cy="94" r="2.4"/><circle cx="165" cy="112" r="2.4"/><circle cx="140" cy="140" r="2.4"/>
-          </g>
-        </svg>
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule">
-
-  <!-- ================= SERVICES ================= -->
-  <section class="pad" id="craft">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow">What we make</div>
-        <h2>Six disciplines, one hand on every piece</h2>
-        <p>Every category below is built to your wall's dimensions, your palette, and your occasion — from a single accent piece to a full room.</p>
-      </div>
-    </div>
-
-    <div class="wrap">
-      <div class="services-grid">
-
-        <div class="service-card">
-          <svg class="icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="22" r="18" stroke="currentColor" stroke-width="1.2"/><circle cx="17" cy="18" r="4" fill="currentColor" opacity="0.8"/><circle cx="27" cy="24" r="3" fill="currentColor" opacity="0.6"/><circle cx="20" cy="29" r="2" fill="currentColor" opacity="0.5"/></svg>
-          <h3>Custom Lippan Art</h3>
-          <p>Clay relief and mirror-work in the Kutch tradition, hand-built and set piece by piece to your size and colour story.</p>
-          <span class="tag">Mud &amp; Mirror Work</span>
-        </div>
-
-        <div class="service-card">
-          <svg class="icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M8 34 L18 12 L26 28 L32 16 L38 34" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <h3>Handpainted Wall Murals</h3>
-          <p>Full accent walls and feature murals painted directly on site, scaled to your room and matched to your interiors.</p>
-          <span class="tag">Murals &amp; Accent Walls</span>
-        </div>
-
-        <div class="service-card">
-          <svg class="icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="8" y="10" width="28" height="22" rx="1" stroke="currentColor" stroke-width="1.2"/><circle cx="16" cy="18" r="2.4" fill="currentColor"/><circle cx="24" cy="24" r="2" fill="currentColor" opacity="0.7"/><circle cx="30" cy="16" r="1.6" fill="currentColor" opacity="0.6"/></svg>
-          <h3>Custom MDF Wall Hangings</h3>
-          <p>Cut and finished MDF boards, hand-detailed and shaped to fit an exact wall, gift, or brand brief.</p>
-          <span class="tag">Wall Hangings</span>
-        </div>
-
-        <div class="service-card">
-          <svg class="icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="22" cy="22" r="16" stroke="currentColor" stroke-width="1.1"/><circle cx="22" cy="22" r="10" stroke="currentColor" stroke-width="1"/><circle cx="22" cy="22" r="4" stroke="currentColor" stroke-width="1"/><line x1="22" y1="6" x2="22" y2="12" stroke="currentColor" stroke-width="1"/><line x1="22" y1="32" x2="22" y2="38" stroke="currentColor" stroke-width="1"/><line x1="6" y1="22" x2="12" y2="22" stroke="currentColor" stroke-width="1"/><line x1="32" y1="22" x2="38" y2="22" stroke="currentColor" stroke-width="1"/></svg>
-          <h3>Mandala Art</h3>
-          <p>Precise, meditative mandala compositions in paint or mixed media, sized for walls, ceilings, or gifting.</p>
-          <span class="tag">Mandala</span>
-        </div>
-
-        <div class="service-card">
-          <svg class="icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M10 30 Q22 8 34 30" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="22" cy="26" r="9" fill="currentColor" opacity="0.18"/><circle cx="22" cy="26" r="9" stroke="currentColor" stroke-width="1"/></svg>
-          <h3>Resin Artworks</h3>
-          <p>Poured resin pieces — coasters to statement panels — with depth, pigment, and a glass-like finish.</p>
-          <span class="tag">Resin Design</span>
-        </div>
-
-        <div class="service-card">
-          <svg class="icon" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="9" y="16" width="26" height="18" rx="1" stroke="currentColor" stroke-width="1.2"/><path d="M9 16 L22 8 L35 16" stroke="currentColor" stroke-width="1.2" fill="none"/><line x1="22" y1="8" x2="22" y2="34" stroke="currentColor" stroke-width="1"/></svg>
-          <h3>Bulk Return Gifts</h3>
-          <p>Miniature Lippan and resin pieces produced in volume for weddings, corporate events, and celebrations.</p>
-          <span class="tag">Events &amp; Weddings</span>
-        </div>
-
-      </div>
-
-      <div class="collab">
-        <div>
-          <h4>Designing a space? Bring us in early.</h4>
-          <p>We collaborate directly with interior designers and architects on scale drawings, material palettes, and installation timelines.</p>
-        </div>
-        <a href="#contact" class="btn btn-primary">Talk to the studio</a>
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule">
-
-  <!-- ================= PROCESS ================= -->
-  <section class="pad" id="process">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow">How a piece gets made</div>
-        <h2>From your wall to your finished piece</h2>
-      </div>
-
-      <div class="process-strip">
-        <div class="process-step">
-          <div class="process-num">01 · Consult</div>
-          <h3>Share your space</h3>
-          <p>Send wall dimensions, room photos, or an event brief. We talk palette, motif, and where the piece needs to sit in the room.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-num">02 · Design</div>
-          <h3>Sketch &amp; palette</h3>
-          <p>Chaitanya sketches the composition and proposes clay, mirror, and paint tones matched to your interior.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-num">03 · Handcraft</div>
-          <h3>Built by hand</h3>
-          <p>Each piece is built, painted, or poured in the studio — no two mirror clusters or mandala rings are identical.</p>
-        </div>
-        <div class="process-step">
-          <div class="process-num">04 · Deliver</div>
-          <h3>Install or ship</h3>
-          <p>Wall murals are finished on site; hangings, resin, and gift pieces are packed and delivered ready to place.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule">
-
-  <!-- ================= ABOUT ================= -->
-  <section class="pad" id="about">
-    <div class="wrap about-grid">
-      <div class="about-frame">
-        <svg viewBox="0 0 400 500" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <rect width="400" height="500" fill="#241f27"/>
-          <circle cx="200" cy="210" r="120" fill="none" stroke="#c9873c" stroke-width="1"/>
-          <circle cx="200" cy="210" r="80" fill="none" stroke="#8a3230" stroke-width="1"/>
-          <g fill="#eae7df">
-            <circle cx="150" cy="170" r="10" opacity="0.85"/>
-            <circle cx="240" cy="150" r="6" opacity="0.7"/>
-            <circle cx="255" cy="240" r="14" opacity="0.9"/>
-            <circle cx="170" cy="260" r="5" opacity="0.6"/>
-            <circle cx="200" cy="210" r="4" opacity="0.5"/>
-          </g>
-          <text x="200" y="430" text-anchor="middle" font-family="Caveat, cursive" font-size="30" fill="#c9873c">Dommeti Chaitanya</text>
-          <text x="200" y="458" text-anchor="middle" font-family="Work Sans, sans-serif" font-size="11" letter-spacing="2" fill="#a89a86">FOUNDER &amp; LEAD ARTIST</text>
-        </svg>
-      </div>
-
-      <div class="about-copy">
-        <div class="eyebrow">The artist</div>
-        <h2 style="font-size:clamp(1.9rem,3.2vw,2.4rem); margin-bottom:22px;">Every piece starts as a conversation about your wall</h2>
-        <p><strong>Dommeti Chaitanya</strong> founded Chakkani Chitralu to bring the discipline of traditional Lippan art — clay relief inlaid with mirror, historically used to cool and decorate mud homes in Kutch — into contemporary Indian homes and workplaces.</p>
-        <p>What began with mirror and clay has grown into a full studio practice: handpainted murals for living rooms and offices, mandala compositions for meditation spaces, resin pieces for modern interiors, and miniature Lippan work produced by the hundreds for wedding favours.</p>
-        <p>Every commission is designed and finished personally, and every size, palette, and motif is built around the wall — or the guest list — it's made for.</p>
-        <div class="signature-line">
-          <span class="sig">Chaitanya</span>
-          <span>Chakkani Chitralu Studio</span>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <hr class="rule">
-
-  <!-- ================= GALLERY ================= -->
-  <section class="pad" id="gallery">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow">A feel for the work</div>
-        <h2>Motifs from the studio</h2>
-        <p>Generative studies in the palettes and patterns we work in — your finished piece is built around your own wall and brief.</p>
-      </div>
-
-      <div class="gallery-grid">
-        <figure class="swatch">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="200" fill="#2b2118"/>
-            <circle cx="100" cy="100" r="70" fill="none" stroke="#c9873c" stroke-width="1"/>
-            <circle cx="100" cy="100" r="45" fill="none" stroke="#8a3230" stroke-width="1"/>
-            <circle cx="70" cy="80" r="9" fill="#eae7df" opacity="0.9"/>
-            <circle cx="130" cy="90" r="5" fill="#eae7df" opacity="0.7"/>
-            <circle cx="115" cy="130" r="12" fill="#eae7df" opacity="0.85"/>
-            <circle cx="80" cy="130" r="4" fill="#eae7df" opacity="0.6"/>
-          </svg>
-          <figcaption>Lippan mirror cluster</figcaption>
-        </figure>
-
-        <figure class="swatch">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="200" fill="#1c1a22"/>
-            <path d="M20 160 C 60 60, 140 60, 180 160" stroke="#e0aa66" stroke-width="2" fill="none"/>
-            <path d="M20 130 C 70 180, 130 40, 180 100" stroke="#8a3230" stroke-width="1.4" fill="none" opacity="0.8"/>
-          </svg>
-          <figcaption>Mural line study</figcaption>
-        </figure>
-
-        <figure class="swatch">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="200" fill="#241f27"/>
-            <g stroke="#c9873c" stroke-width="0.8" fill="none">
-              <circle cx="100" cy="100" r="20"/><circle cx="100" cy="100" r="38"/><circle cx="100" cy="100" r="56"/><circle cx="100" cy="100" r="74"/>
-            </g>
-            <g fill="#eae7df">
-              <circle cx="100" cy="26" r="2.4"/><circle cx="174" cy="100" r="2.4"/><circle cx="100" cy="174" r="2.4"/><circle cx="26" cy="100" r="2.4"/>
-              <circle cx="151" cy="49" r="2"/><circle cx="151" cy="151" r="2"/><circle cx="49" cy="151" r="2"/><circle cx="49" cy="49" r="2"/>
-            </g>
-          </svg>
-          <figcaption>Mandala ring</figcaption>
-        </figure>
-
-        <figure class="swatch">
-          <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <rect width="200" height="200" fill="#2b2118"/>
-            <path d="M30 40 Q100 10 170 40 Q190 100 170 160 Q100 190 30 160 Q10 100 30 40 Z" fill="#7c451f" opacity="0.5"/>
-            <circle cx="100" cy="100" r="34" fill="#c9873c" opacity="0.35"/>
-            <circle cx="100" cy="100" r="34" stroke="#eae7df" stroke-width="0.8" fill="none"/>
-          </svg>
-          <figcaption>Resin pour study</figcaption>
-        </figure>
-      </div>
-      <p class="gallery-note">Studio photography of finished commissions coming soon — the pieces above are palette &amp; pattern studies used in design proposals.</p>
-    </div>
-  </section>
-
-  <!-- ================= CTA STRIP ================= -->
-  <section class="strip-cta">
-    <div class="wrap">
-      <div class="eyebrow" style="justify-content:center;">Bulk &amp; event orders</div>
-      <h2>Return gifts your guests will actually keep</h2>
-      <p>Miniature Lippan pieces, resin coasters, and mini mandalas — produced in volume, priced by quantity, and ready ahead of your event date.</p>
-      <a href="#contact" class="btn btn-primary">Request a bulk quote</a>
-    </div>
-  </section>
-
-  <!-- ================= CONTACT ================= -->
-  <section class="pad" id="contact">
-    <div class="wrap">
-      <div class="section-head">
-        <div class="eyebrow">Get in touch</div>
-        <h2>Turn your wall into a piece of work</h2>
-        <p>Tell us about your space, your event, or your gifting brief — we'll come back with a design direction and a quote.</p>
-      </div>
-
-      <div class="contact-grid">
-        <ul class="contact-list">
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.1-8.7A2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8 9.9a16 16 0 0 0 6 6l1.4-1.4a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.8 2z"/></svg>
-            <div><strong>Call or WhatsApp</strong><a href="tel:+918897343720">+91 88973 43720</a></div>
-          </li>
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 4h16v16H4z"/><path d="M22 6 12 13 2 6"/></svg>
-            <div><strong>Email</strong><a href="mailto:chakkanichitralu@gmail.com">chakkanichitralu@gmail.com</a></div>
-          </li>
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
-              <rect x="4" y="4" width="16" height="16" rx="4"/>
-              <circle cx="12" cy="12" r="4"/>
-              <circle cx="17.2" cy="6.8" r="1"/>
-            </svg>
-            <div><strong>Instagram</strong><a href="https://www.instagram.com/chakkani_chitralu/" target="_blank" rel="noopener">instagram.com/chakkani_chitralu</a></div>
-          </li>
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
-            <div><strong>Locations</strong><span>Hyderabad · Vijayawada — by appointment</span></div>
-          </li>
-          <li>
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
-            <div><strong>Hours</strong><span>Mon–Sat, 10am–7pm · Sunday by appointment</span></div>
-          </li>
-        </ul>
-
-        <form class="enquire" id="enquireForm">
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" name="name" type="text" required autocomplete="name">
-          </div>
-          <div class="field">
-            <label for="phone">Phone or WhatsApp</label>
-            <input id="phone" name="phone" type="tel" required autocomplete="tel">
-          </div>
-          <div class="field">
-            <label for="service">What are you looking for</label>
-            <select id="service" name="service">
-              <option>Custom Lippan Art</option>
-              <option>Wall Mural / Accent Wall</option>
-              <option>MDF Wall Hanging</option>
-              <option>Mandala Art</option>
-              <option>Resin Artwork</option>
-              <option>Bulk Return Gifts</option>
-              <option>Interior / Architect Collaboration</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="details">Tell us about your wall or event</label>
-            <textarea id="details" name="details" placeholder="Room size, colours you like, event date, quantity for gifts..."></textarea>
-          </div>
-          <p class="form-note">We usually reply within one business day.</p>
-          <button type="submit" class="btn btn-primary">Send enquiry</button>
-          <p class="form-msg" id="formMsg" role="status"></p>
-        </form>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    <div class="footer-row">
-      <a href="#top" class="brand">
-        <svg class="mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <circle cx="20" cy="20" r="18" stroke="#c9873c" stroke-width="1.3"/>
-          <circle cx="20" cy="20" r="7" fill="#eae7df"/>
-          <circle cx="12" cy="14" r="3.2" fill="#8a3230"/>
-        </svg>
-        Chakkani Chitralu
-      </a>
-      <ul class="footer-links">
-        <li><a href="#craft">Craft</a></li>
-        <li><a href="#process">Process</a></li>
-        <li><a href="#about">Artist</a></li>
-        <li><a href="#gallery">Gallery</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> Chakkani Chitralu · Dommeti Chaitanya</span>
-      <span>Handcrafted Lippan Art · Murals · Mandala · Resin · Hyderabad · Vijayawada · Vijayawada</span>
-    </div>
-  </div>
-</footer>
-
-<script>
-  // header shrink on scroll
-  const header = document.getElementById('siteHeader');
-  window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 40);
-  }, { passive: true });
-
-  // mobile nav
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
-  navToggle.addEventListener('click', () => {
-    const open = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', open);
-  });
-  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-    navLinks.classList.remove('open');
-    navToggle.setAttribute('aria-expanded', 'false');
-  }));
-
-  // footer year
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // hero mirror parallax (subtle, mouse-follow)
-  const heroArt = document.querySelector('.hero-art');
-  if (heroArt && window.matchMedia('(prefers-reduced-motion: no-preference)').matches) {
-    heroArt.addEventListener('mousemove', (e) => {
-      const rect = heroArt.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      heroArt.querySelector('.mosaic-svg').style.transform = `rotate(${x*2}deg) translate(${x*6}px, ${y*6}px)`;
-    });
-    heroArt.addEventListener('mouseleave', () => {
-      heroArt.querySelector('.mosaic-svg').style.transform = '';
-    });
-  }
-
-  // enquiry form — opens a pre-filled WhatsApp message
-  const form = document.getElementById('enquireForm');
-  const formMsg = document.getElementById('formMsg');
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const data = new FormData(form);
-    const message = [
-      'Hello! I would like to enquire about a custom artwork.',
-      '',
-      `Name: ${data.get('name') || ''}`,
-      `Phone/WhatsApp: ${data.get('phone') || ''}`,
-      `Looking for: ${data.get('service') || ''}`,
-      `Details: ${data.get('details') || ''}`
-    ].join('\n');
-
-    const whatsappUrl = `https://wa.me/918897343720?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank', 'noopener');
-    formMsg.textContent = 'Opening WhatsApp…';
-  });
-</script>
-
-</body>
-</html>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/png" sizes="32x32" href="assets/logo/favicon-32.png"><link rel="icon" type="image/png" sizes="64x64" href="assets/logo/favicon-64.png"><link rel="apple-touch-icon" href="assets/logo/favicon-180.png"><title>Handcrafted Art Studio | Chakkani Chitralu</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"><style>:root{--bg:#0E0D0C;--bg2:#171513;--clay:#D4A359;--soft:#E5B86F;--maroon:#7c3f3f;--paper:#F5F2EB;--muted:#A39D94;--line:rgba(212,163,89,.18)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--paper);font-family:'Plus Jakarta Sans',system-ui,sans-serif;line-height:1.6}a{color:inherit}.wrap{max-width:1180px;margin:auto;padding:0 32px}@media(max-width:640px){.wrap{padding:0 20px}}h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;margin:0;line-height:1.1}.script{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;color:var(--soft)}header.site{position:sticky;top:0;z-index:50;background:rgba(28,26,34,.95);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}.nav-row{min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{text-decoration:none;font-family:'Cormorant Garamond',Georgia,serif;font-size:1.2rem;font-weight:600}.brand small{display:block;font:400 .6rem 'Plus Jakarta Sans';letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}nav.links{display:flex;gap:24px;align-items:center}nav.links a{text-decoration:none;color:var(--muted);font-size:.85rem}nav.links a:hover{color:var(--soft)}.btn{display:inline-flex;padding:12px 22px;text-decoration:none;border:1px solid var(--line);font-size:.9rem;cursor:pointer}.btn-primary{background:var(--clay);color:#0E0D0C;border-color:var(--clay);font-weight:600}.btn-primary:hover{background:var(--soft)}.nav-toggle{display:none;background:none;border:1px solid var(--line);color:var(--paper);width:40px;height:40px}@media(max-width:860px){nav.links{position:fixed;right:0;top:76px;width:min(82vw,330px);height:calc(100vh - 76px);background:#1a171f;display:flex;flex-direction:column;align-items:flex-start;padding:35px;transform:translateX(110%);transition:.3s}.links.open{transform:none}.nav-toggle{display:block}.nav-cta{display:none}}.hero{padding:72px 0 64px;background:radial-gradient(ellipse 800px 400px at 80% 20%,rgba(201,135,60,.13),transparent 60%),var(--bg)}.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:50px;align-items:center}@media(max-width:900px){.hero-grid{grid-template-columns:1fr}}.eyebrow{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--soft);margin-bottom:18px}.hero h1{font-size:clamp(2.4rem,5vw,4rem)}.hero p{color:var(--muted);max-width:55ch;font-weight:300;font-size:1.02rem;margin:20px 0 28px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap}.hero-image{aspect-ratio:1/1;overflow:hidden;border:1px solid var(--line);background:var(--bg2)}.hero-image img,.card-image img,.gallery-item img,.about-image img{width:100%;height:100%;object-fit:cover}.page-head{padding:70px 0 45px;border-bottom:1px solid var(--line)}.page-head h1{font-size:clamp(2.2rem,5vw,3.6rem)}.page-head p{color:var(--muted);max-width:65ch}section.pad{padding:75px 0}.section-head{max-width:700px;margin-bottom:38px}.section-head h2{font-size:clamp(1.9rem,3.5vw,2.7rem)}.section-head p{color:var(--muted);margin-top:14px}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}@media(max-width:900px){.cards{grid-template-columns:1fr 1fr}}@media(max-width:600px){.cards{grid-template-columns:1fr}}.card{background:var(--bg2);border:1px solid var(--line);padding:16px}.card-image{aspect-ratio:4/3;background:#17151b;overflow:hidden;margin-bottom:18px}.card h3{font-size:1.3rem}.card p{color:var(--muted);font-size:.92rem}.card .btn{margin-top:8px}.gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}@media(max-width:760px){.gallery-grid{grid-template-columns:1fr 1fr}}@media(max-width:500px){.gallery-grid{grid-template-columns:1fr}}.gallery-item{aspect-ratio:1;overflow:hidden;border:1px solid var(--line);background:var(--bg2)}.process{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}@media(max-width:800px){.process{grid-template-columns:1fr 1fr}}@media(max-width:520px){.process{grid-template-columns:1fr}}.step{border-top:1px solid var(--clay);padding-top:16px}.step b{color:var(--soft);font-size:.8rem}.step h3{margin:8px 0}.step p{color:var(--muted);font-size:.9rem}.about{display:grid;grid-template-columns:.8fr 1.2fr;gap:50px;align-items:center}@media(max-width:800px){.about{grid-template-columns:1fr}}.about-image{aspect-ratio:4/5;background:var(--bg2);border:1px solid var(--line);overflow:hidden}.about p{color:var(--muted)}.contact{display:grid;grid-template-columns:.8fr 1.2fr;gap:55px}@media(max-width:850px){.contact{grid-template-columns:1fr}}.contact-list{list-style:none;padding:0;margin:0}.contact-list li{padding:14px 0;border-bottom:1px solid var(--line)}.contact-list strong{display:block}.contact-list span,.contact-list a{color:var(--muted);text-decoration:none}form{display:flex;flex-direction:column;gap:15px}.field{display:flex;flex-direction:column;gap:6px}.field label{font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}input,select,textarea{background:var(--bg2);border:1px solid var(--line);color:var(--paper);padding:12px;font:inherit}textarea{min-height:120px;resize:vertical}.form-msg{color:var(--soft);min-height:1.3em}.cta{padding:60px 0;text-align:center;background:linear-gradient(100deg,#7c451f,var(--maroon))}.cta p{max-width:600px;margin:14px auto 24px;color:#f1ead9cc}footer{border-top:1px solid var(--line);padding:35px 0;color:var(--muted);font-size:.8rem}.footer-row{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.footer-links{display:flex;gap:18px;list-style:none;margin:0;padding:0}.footer-links a{text-decoration:none}
+/* ---------- IMAGE BACKGROUND BLENDING ---------- */
+/* Soft, seamless artwork presentation */
+.art-image,
+.gallery-image,
+.image-card img,
+.artwork img,
+.upload-image,
+img.art-photo {
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  border:0 !important;
+  outline:0 !important;
+  border-radius:14px;
+  opacity:.94;
+  mix-blend-mode:normal;
+  -webkit-mask-image:radial-gradient(ellipse at center, #000 68%, rgba(0,0,0,.88) 80%, transparent 100%);
+  mask-image:radial-gradient(ellipse at center, #000 68%, rgba(0,0,0,.88) 80%, transparent 100%);
+  box-shadow:0 0 45px 20px rgba(28,26,34,.72);
+  transition:opacity .3s ease, filter .3s ease, transform .3s ease;
+}
+
+.art-image:hover,
+.gallery-image:hover,
+.image-card img:hover,
+.artwork img:hover,
+.upload-image:hover,
+img.art-photo:hover {
+  opacity:1;
+  filter:saturate(1.02) contrast(1.01);
+}
+
+/* Image containers fade into the page instead of showing hard rectangular edges */
+.image-card,
+.artwork,
+.gallery-image-wrap,
+.art-image-wrap,
+.upload-image-wrap {
+  overflow:hidden;
+  border:0 !important;
+  background:
+    radial-gradient(ellipse at center,
+      rgba(38,32,41,.15) 0%,
+      rgba(28,26,34,.72) 72%,
+      rgba(28,26,34,1) 100%);
+  box-shadow:none !important;
+}
+
+/* Remove harsh gallery/card outlines around photographs */
+.gallery-grid .image-card,
+.gallery-grid figure,
+.gallery-item,
+.art-card {
+  border:0 !important;
+  outline:0 !important;
+  background:transparent !important;
+}
+
+/* Gentle edge fade over dark site background */
+.image-card::after,
+.artwork::after,
+.gallery-image-wrap::after,
+.art-image-wrap::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at center,
+      transparent 58%,
+      rgba(28,26,34,.18) 75%,
+      rgba(28,26,34,.68) 100%);
+  mix-blend-mode:multiply;
+}
+
+/* Keep actual image above the soft overlay */
+.image-card,
+.artwork,
+.gallery-image-wrap,
+.art-image-wrap { position:relative; }
+.image-card img,
+.artwork img,
+.gallery-image-wrap img,
+.art-image-wrap img { position:relative; z-index:1; }
+
+</style><link rel="stylesheet" href="assets/theme-enhance.css">
+</head><body><div class="announce-banner" id="announceBanner"><div class="announce-track"><span class="announce-item">&#127881; <b>Offer:</b> Flat 10% off on Lippan Mirror Clusters this month.</span><span class="announce-item">&#127912; Now accepting custom Pichwai &amp; Kalpakosha commissions for weddings &amp; events.</span><span class="announce-item">&#128591; Wishing all our patrons a joyful festive season from Chakkani Chitralu!</span><span class="announce-item" aria-hidden="true">&#127881; <b>Offer:</b> Flat 10% off on Lippan Mirror Clusters this month.</span><span class="announce-item" aria-hidden="true">&#127912; Now accepting custom Pichwai &amp; Kalpakosha commissions for weddings &amp; events.</span><span class="announce-item" aria-hidden="true">&#128591; Wishing all our patrons a joyful festive season from Chakkani Chitralu!</span></div><button class="announce-close" id="announceClose" aria-label="Dismiss announcement">&times;</button></div><header class="site"><div class="wrap nav-row"><a class="brand" href="index.html"><span class="brand-mark"><img src="assets/logo/chakkani-chitralu-logo.png" alt="Chakkani Chitralu logo"></span><span class="brand-text"><span class="brand-title">Chakkani Chitralu</span><small>Dommeti Chaitanya &middot; Studio</small></span></a><nav class="links" id="navLinks"><a href="index.html" class="nav-home">&#8962; Home</a><a href="craft.html">Craft</a><a href="process.html">Process</a><a href="artist.html">Artist</a><a href="gallery.html">Gallery</a><a href="enquiry.html">Enquiry</a></nav><a class="btn btn-primary nav-cta" href="https://wa.me/918897343720?text=Hello!%20" target="_blank">WhatsApp</a><button class="nav-toggle" id="navToggle">☰</button></div></header><main><section class="hero">
+<!-- ============================================================
+     FLOWER ANNOUNCEMENT BANNER — for future announcements
+     This small round badge is shown in the middle of the spinning
+     flower graphic at the top-right of this Home page hero (it
+     replaces the old pop-up). To change the announcement, just
+     edit the text inside the <span> below. To link it somewhere
+     else, change the href="enquiry.html" on the <a> tag.
+     To hide it temporarily, add style="display:none" to the <a>.
+============================================================ -->
+<a href="enquiry.html" class="flower-banner" id="flowerBanner"><span>&#127881; Flat 10% off on Lippan Mirror Clusters this month!</span></a>
+<div class="wrap hero-grid"><div><div class="eyebrow">Art Studio · Hyderabad & Vijayawada</div><h1>Your wall, <span class="script">your story.</span></h1><p>Handcrafted Lippan Mirror Cluster, Pichwai Art and Kalpavriksha Art — designed around your space and finished by artist Dommeti Chaitanya.</p><div class="hero-actions"><a class="btn btn-primary" href="enquiry.html">Send an Enquiry</a><a class="btn" href="craft.html">Explore the Art</a></div></div><div class="hero-image"><img src="assets/uploads/home-hero.jpg" alt="Your selected Chakkani Chitralu artwork"></div></div></section><section class="pad"><div class="wrap"><div class="section-head"><div class="eyebrow">Our Art</div><h2>Three focused art forms</h2><p>Rooted in timeless Indian tradition, tailored for contemporary architecture and luxury living.</p></div><div class="cards"><div class="card"><div class="card-image"><img src="assets/lippan/image-01.jpg" alt="Lippan Mirror Cluster"></div><h3>Lippan Mirror Cluster</h3><p>Intricate mud and mirror relief murals that catch light and create dynamic focal points.</p><a class="btn" href="craft.html#lippan">View</a></div><div class="card"><div class="card-image"><img src="assets/pichwai/image-01.jpg" alt="Pichwai Art"></div><h3>Pichwai Art</h3><p>Sacred, detailed Rajasthani heritage paintings reimagined for modern sanctuaries.</p><a class="btn" href="craft.html#pichwai">View</a></div><div class="card"><div class="card-image"><img src="assets/kalpakosha/image-01.jpg" alt="Kalpavriksha Art"></div><h3>Kalpavriksha Art</h3><p>Geometric, spiritual compositions crafted with mindful precision and texture.</p><a class="btn" href="craft.html#kalpakosha">View</a></div></div></div></section><section class="pad" style="padding-top:0"><div class="wrap"><div class="section-head"><div class="eyebrow">Fresh From the Studio</div><h2>More artworks</h2><p>A quick look across all three collections &mdash; visit the Craft page for the full set.</p></div><div class="side-strip"><div class="side-card"><div class="card-image"><img src="assets/lippan/image-02.jpg" alt="Lippan Mirror Cluster artwork"></div><h4>Lippan Mirror Cluster</h4><p>Clay relief &amp; mirror work.</p></div><div class="side-card"><div class="card-image"><img src="assets/pichwai/image-02.jpg" alt="Pichwai artwork"></div><h4>Pichwai Art</h4><p>Devotional hand painting.</p></div><div class="side-card"><div class="card-image"><img src="assets/kalpakosha/image-02.jpg" alt="Kalpavriksha artwork"></div><h4>Kalpavriksha Art</h4><p>Custom made-to-order piece.</p></div><div class="side-card"><div class="card-image"><img src="assets/gallery/image-10.jpg" alt="Chakkani Chitralu artwork"></div><h4>From the Gallery</h4><p>See more on the Gallery page.</p></div><div class="side-card"><div class="card-image"><img src="assets/gallery/image-11.jpg" alt="Chakkani Chitralu artwork"></div><h4>From the Gallery</h4><p>See more on the Gallery page.</p></div></div><a class="btn" href="gallery.html" style="margin-top:22px">View Full Gallery</a></div></section><section class="cta"><div class="wrap"><h2>Have a wall or event in mind?</h2><p>Send your dimensions, reference images and requirements through the enquiry form.</p><a class="btn btn-primary" href="enquiry.html">Start Enquiry</a></div></section></main><footer><div class="wrap footer-row"><span>© <span id="year"></span> Chakkani Chitralu · Hyderabad · Vijayawada</span><ul class="footer-links"><li><a href="https://www.instagram.com/chakkani_chitralu/" target="_blank">Instagram</a></li><li><a href="mailto:chakkanichitralu@gmail.com">Email</a></li><li><a href="tel:+918897343720">Call</a></li></ul></div></footer><script>const t=document.getElementById("navToggle"),n=document.getElementById("navLinks");if(t)t.onclick=()=>n.classList.toggle("open");const y=document.getElementById("year");if(y)y.textContent=new Date().getFullYear();</script><script src="assets/theme-enhance.js" defer></script>
+</body></html>
