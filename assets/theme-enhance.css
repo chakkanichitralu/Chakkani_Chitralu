@@ -1,0 +1,413 @@
+/* =========================================================
+   Chakkani Chitralu — Enhancement Layer
+   Adds: smooth transitions, hover motion, scroll reveals,
+   animated bloom-flower decor, falling petal animation.
+   Pure addition — does not remove any existing rule.
+========================================================= */
+
+html{scroll-behavior:smooth}
+
+/* ---------- global motion ---------- */
+a,button,.btn,.card,.gallery-item,.step,.about-image,.hero-image,
+input,select,textarea,nav.links a,.brand small,.eyebrow{
+  transition:background-color .35s ease,border-color .35s ease,
+    box-shadow .4s ease,transform .45s cubic-bezier(.2,.8,.2,1),
+    opacity .35s ease,color .3s ease,letter-spacing .35s ease;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar{width:10px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--clay),var(--maroon));border-radius:10px;border:2px solid var(--bg)}
+*{scrollbar-color:var(--clay) var(--bg);scrollbar-width:thin}
+::selection{background:var(--clay);color:#1c1a22}
+
+/* gentle page-in fade */
+body{animation:pageFade .9s ease both}
+@keyframes pageFade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* header polish on scroll */
+header.site{transition:box-shadow .4s ease,background-color .4s ease}
+header.site.scrolled{box-shadow:0 12px 30px -18px rgba(0,0,0,.65);background:rgba(18,16,22,.94)}
+
+.brand{position:relative}
+.brand:hover small{letter-spacing:.22em;color:var(--soft)}
+
+nav.links a{position:relative;padding-bottom:5px}
+nav.links a::after{content:"";position:absolute;left:0;right:100%;bottom:-1px;height:1px;
+  background:linear-gradient(90deg,var(--clay),var(--soft));transition:right .4s cubic-bezier(.2,.8,.2,1)}
+nav.links a:hover::after{right:0}
+
+/* ---------- buttons: shimmer sweep + lift ---------- */
+.btn{position:relative;overflow:hidden;isolation:isolate}
+.btn::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(120deg,transparent 30%,rgba(255,255,255,.4) 50%,transparent 70%);
+  transform:translateX(-130%);transition:transform .65s ease;z-index:0}
+.btn:hover::before{transform:translateX(130%)}
+.btn:hover{transform:translateY(-3px)}
+.btn-primary:hover{box-shadow:0 14px 30px -14px rgba(201,135,60,.8)}
+.btn:not(.btn-primary):hover{box-shadow:0 10px 24px -14px rgba(234,231,223,.25);border-color:var(--clay)}
+
+/* ---------- animated gradient script text ---------- */
+.script{
+  background:linear-gradient(90deg,var(--soft),var(--clay),var(--maroon),var(--soft));
+  background-size:300% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:gradientFlow 7s linear infinite;
+}
+@keyframes gradientFlow{to{background-position:300% center}}
+
+/* ---------- card / image hover + soft edge blending ----------
+   The original inline stylesheet had an "IMAGE_BACKGROUND_BLENDING"
+   block, but it targeted class names (.art-image, .gallery-image,
+   .image-card img …) that are not actually used anywhere in the
+   markup, so uploaded photographs were rendering with hard, harsh
+   edges against the dark background. This re-applies the same
+   feathered, blended look to the classes the pages really use. */
+.card,.gallery-item,.step{position:relative}
+.card:hover,.gallery-item:hover{transform:translateY(-9px);box-shadow:0 26px 48px -22px rgba(0,0,0,.6);border-color:var(--clay)}
+
+.card-image,.gallery-item,.about-image,.hero-image,.side-strip .card-image{
+  position:relative;overflow:hidden;border-radius:18px;
+  background:radial-gradient(ellipse at center,rgba(38,32,41,.12) 0%,rgba(28,26,34,.75) 72%,rgba(28,26,34,1) 100%);
+}
+.card-image img,.gallery-item img,.about-image img,.hero-image img,.side-strip .card-image img{
+  display:block;width:100%;height:100%;object-fit:cover;
+  border:0 !important;outline:0 !important;border-radius:18px;
+  opacity:.95;
+  -webkit-mask-image:radial-gradient(ellipse at center,#000 70%,rgba(0,0,0,.85) 85%,transparent 100%);
+  mask-image:radial-gradient(ellipse at center,#000 70%,rgba(0,0,0,.85) 85%,transparent 100%);
+  box-shadow:inset 0 0 50px 14px rgba(28,26,34,.4);
+  transition:transform .9s cubic-bezier(.2,.8,.2,1),opacity .4s ease,filter .5s ease !important;
+}
+.card:hover .card-image img,.gallery-item:hover img{transform:scale(1.09) rotate(.4deg);opacity:1}
+.about-image:hover img,.hero-image:hover img{transform:scale(1.05);opacity:1}
+
+.step{border-top-width:2px}
+.step b{transition:color .3s ease,text-shadow .3s ease}
+.step:hover{transform:translateY(-6px)}
+.step:hover b{color:var(--clay);text-shadow:0 0 14px rgba(201,135,60,.55)}
+
+/* ---------- scroll reveal ---------- */
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .85s ease,transform .85s cubic-bezier(.2,.8,.2,1)}
+.reveal.in-view{opacity:1;transform:none}
+
+/* ---------- logo mark + animated glow (bigger, bolder) ---------- */
+.brand{display:inline-flex;align-items:center;gap:14px}
+.brand-mark{position:relative;width:64px;height:64px;flex:0 0 auto;border-radius:50%;display:inline-flex}
+.brand-mark img{
+  width:100%;height:100%;object-fit:cover;position:relative;z-index:3;
+  border:0;outline:0;
+  /* feather the hard photographed edge so it blends into the page instead of
+     showing a harsh circular cut-out against the dark background */
+  -webkit-mask-image:radial-gradient(circle at center,#000 76%,rgba(0,0,0,.55) 88%,transparent 100%);
+  mask-image:radial-gradient(circle at center,#000 76%,rgba(0,0,0,.55) 88%,transparent 100%);
+  opacity:.96;
+  filter:saturate(1.02) contrast(1.02);
+  box-shadow:0 4px 18px -4px rgba(0,0,0,.6);
+  transition:opacity .3s ease,filter .3s ease,transform .35s cubic-bezier(.2,.8,.2,1);
+}
+.brand:hover .brand-mark img{opacity:1;filter:saturate(1.08) contrast(1.04);transform:scale(1.06)}
+.brand:hover .brand-mark::before{animation-duration:2.2s}
+.brand-mark::before{content:"";position:absolute;inset:-5px;border-radius:50%;z-index:1;
+  background:conic-gradient(from 0deg,var(--clay),var(--soft),var(--maroon),var(--clay));
+  animation:logoSpin 9s linear infinite;filter:blur(10px);opacity:.32}
+.brand-mark::after{content:"";position:absolute;inset:-3px;border-radius:50%;z-index:2;
+  border:1px solid rgba(212,163,89,.5);animation:logoPulse 3.2s ease-in-out infinite}
+@keyframes logoSpin{to{transform:rotate(360deg)}}
+@keyframes logoPulse{0%{transform:scale(1);opacity:.65}70%{transform:scale(1.35);opacity:0}100%{opacity:0}}
+.brand-text{display:inline-flex;flex-direction:column}
+
+/* Brand name: bolder, wider, color-graded */
+.brand-title{
+  font-family:'Cormorant Garamond',Georgia,serif;font-size:1.42rem;font-weight:700;letter-spacing:.01em;
+  background:linear-gradient(100deg,var(--soft) 0%,var(--clay) 35%,var(--maroon) 62%,var(--soft) 100%);
+  background-size:280% auto;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:gradientFlow 8s linear infinite;
+}
+.brand-text small{margin-top:2px}
+@media(max-width:640px){
+  .brand-mark{width:48px;height:48px}
+  .brand-title{font-size:1.12rem}
+}
+
+/* ---------- nav links: minimal text links, no pill outlines ---------- */
+nav.links{display:flex;flex-wrap:wrap;gap:26px;align-items:center}
+nav.links a{
+  display:inline-flex;align-items:center;gap:6px;color:var(--muted);
+  padding:6px 0;border:none;border-radius:0;background:transparent;
+  font-weight:500;font-size:.85rem;letter-spacing:.04em;
+}
+nav.links a::after{content:"";position:absolute;left:0;right:100%;bottom:-1px;height:1px;
+  background:linear-gradient(90deg,var(--clay),var(--soft));transition:right .4s cubic-bezier(.2,.8,.2,1);display:block}
+nav.links a:hover,nav.links a.nav-home{color:var(--soft)}
+nav.links a:hover::after{right:0}
+nav.links a:hover{background:transparent;transform:none}
+@media(max-width:860px){
+  nav.links a{margin-bottom:2px;padding:10px 0}
+}
+
+/* ---------- WhatsApp button: sleek outlined pill ---------- */
+.nav-cta.btn-primary{
+  background:transparent;color:var(--clay);border:1px solid var(--clay);
+  border-radius:100px;padding:10px 24px;font-weight:600;letter-spacing:.03em;
+}
+.nav-cta.btn-primary:hover{background:var(--clay);color:#0E0D0C;box-shadow:0 14px 30px -14px rgba(212,163,89,.65)}
+
+/* ---------- extra artwork strip (side scroll) ---------- */
+.side-strip{display:flex;gap:16px;overflow-x:auto;padding:6px 2px 18px;scroll-snap-type:x proximity;
+  -webkit-overflow-scrolling:touch}
+.side-strip::-webkit-scrollbar{height:8px}
+.side-strip .side-card{flex:0 0 auto;width:220px;scroll-snap-align:start}
+.side-strip .side-card .card-image{aspect-ratio:4/5;margin-bottom:10px}
+.side-strip .side-card h4{font-family:'Cormorant Garamond',Georgia,serif;font-size:1rem;margin:0 0 4px}
+.side-strip .side-card p{color:var(--muted);font-size:.82rem;margin:0}
+
+/* ---------- announcement / offers / wishes banner ---------- */
+.announce-banner{
+  position:relative;overflow:hidden;background:linear-gradient(100deg,var(--maroon),var(--clay) 60%,var(--maroon));
+  background-size:220% auto;animation:announceShift 10s ease-in-out infinite alternate;
+  padding:10px 46px 10px 0;
+}
+@keyframes announceShift{from{background-position:0% center}to{background-position:100% center}}
+.announce-track{display:flex;align-items:center;gap:64px;white-space:nowrap;width:max-content;
+  animation:announceMarquee 26s linear infinite}
+.announce-banner:hover .announce-track{animation-play-state:paused}
+@keyframes announceMarquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.announce-item{font-size:.86rem;color:#fff9ee;letter-spacing:.01em}
+.announce-item b{color:#fff}
+.announce-close{
+  position:absolute;top:50%;right:10px;transform:translateY(-50%);
+  background:rgba(0,0,0,.18);border:1px solid rgba(255,255,255,.35);color:#fff9ee;
+  width:26px;height:26px;border-radius:50%;line-height:1;cursor:pointer;font-size:1rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.announce-close:hover{background:rgba(0,0,0,.35);transform:translateY(-50%) rotate(90deg)}
+.announce-banner.dismissed{display:none}
+@media(max-width:640px){
+  .announce-track{gap:40px;animation-duration:18s}
+  .announce-item{font-size:.78rem}
+}
+
+/* ---------- flower announcement banner (replaces old pop-up) ----------
+   Sits centered on top of the spinning bloom-flower graphic in the
+   Home page hero. Round badge, same footprint as the flower (300px,
+   190px on mobile) so it always stays centered on the design. */
+.flower-banner{
+  position:absolute;top:-70px;right:-70px;width:300px;height:300px;z-index:2;
+  display:flex;align-items:center;justify-content:center;text-decoration:none;
+}
+.flower-banner span{
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  width:62%;aspect-ratio:1/1;border-radius:50%;padding:14px;
+  background:radial-gradient(circle at 35% 30%,#fffaf0,#f1ead9 60%,#e0aa66 130%);
+  border:1px solid var(--clay);box-shadow:0 10px 26px -10px rgba(0,0,0,.55),0 0 0 6px rgba(201,135,60,.12);
+  color:#241f1a;font-size:.76rem;font-weight:700;line-height:1.28;letter-spacing:.005em;
+  animation:bannerPulse 4.5s ease-in-out infinite;
+}
+.flower-banner:hover span{transform:scale(1.06);box-shadow:0 14px 30px -10px rgba(0,0,0,.65),0 0 0 8px rgba(201,135,60,.18)}
+@keyframes bannerPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@media(max-width:640px){
+  .flower-banner{width:190px;height:190px;top:-70px;right:-70px}
+  .flower-banner span{font-size:.62rem;padding:10px}
+}
+
+/* ---------- decorative bloom flower ---------- */
+.bloom-flower{position:absolute;pointer-events:none;opacity:.5;z-index:0;
+  filter:drop-shadow(0 0 20px rgba(201,135,60,.25))}
+.bloom-flower svg{width:100%;height:100%;transform-origin:center;
+  animation:bloomSpin 46s linear infinite,bloomPulse 6.5s ease-in-out infinite}
+@keyframes bloomSpin{to{transform:rotate(360deg)}}
+@keyframes bloomPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+
+.hero{position:relative;overflow:hidden}
+.hero .bloom-flower{top:-70px;right:-70px;width:300px;height:300px}
+.hero-grid,.hero-actions,.eyebrow,.hero h1,.hero p{position:relative;z-index:1}
+
+.page-head{position:relative;overflow:hidden}
+.page-head .bloom-flower{top:-50px;right:-10px;width:190px;height:190px;opacity:.32}
+.page-head .wrap{position:relative;z-index:1}
+
+/* small twirl on the eyebrow flower glyph */
+.eyebrow{position:relative;display:inline-flex;align-items:center;gap:8px}
+.eyebrow::before{content:"❀";color:var(--clay);display:inline-block;font-size:.95em;
+  animation:eyebrowSpin 9s linear infinite}
+@keyframes eyebrowSpin{to{transform:rotate(360deg)}}
+
+/* ---------- falling petals (fixed, whole site) ---------- */
+#petal-field{position:fixed;inset:0;pointer-events:none;z-index:5;overflow:hidden}
+.petal{position:absolute;top:-8vh;opacity:0;will-change:transform,opacity;
+  animation-name:petalFall;animation-timing-function:linear;animation-iteration-count:infinite}
+.petal svg{width:100%;height:100%;display:block}
+@keyframes petalFall{
+  0%{transform:translateY(0) translateX(0) rotate(0deg);opacity:0}
+  8%{opacity:.85}
+  50%{transform:translateY(55vh) translateX(28px) rotate(170deg)}
+  92%{opacity:.8}
+  100%{transform:translateY(112vh) translateX(-24px) rotate(360deg);opacity:0}
+}
+
+/* ---------- form focus glow ---------- */
+input:focus,select:focus,textarea:focus{
+  outline:none;border-color:var(--clay);box-shadow:0 0 0 3px rgba(201,135,60,.2)
+}
+
+/* ---------- CTA shimmer ---------- */
+.cta{position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(650px 220px at 15% -30%,rgba(255,255,255,.14),transparent 60%);
+  animation:ctaShift 9s ease-in-out infinite alternate}
+.cta .wrap{position:relative;z-index:1}
+@keyframes ctaShift{from{transform:translateX(-12%)}to{transform:translateX(12%)}}
+
+/* respect reduced motion */
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important}
+}
+
+@media(max-width:640px){
+  .hero .bloom-flower{width:190px;height:190px}
+  .page-head .bloom-flower{display:none}
+}
+
+/* ---------- luxury refinements ---------- */
+
+/* Hero image: ambient gold glow border */
+.hero-image{
+  border:1px solid rgba(212,163,89,.25) !important;
+  border-radius:16px;
+  box-shadow:0 20px 50px rgba(0,0,0,.55);
+}
+
+/* Form inputs: richer border + generous radius */
+input,select,textarea{
+  border-radius:8px !important;
+  padding:14px 18px !important;
+  border-color:var(--line) !important;
+}
+
+/* Buttons: slightly rounder, editorial feel */
+.btn{border-radius:8px;letter-spacing:.02em}
+.btn-primary{border-radius:8px}
+
+/* Process steps: quiet glass cards with bold antique-gold counters */
+.process{gap:20px}
+.step{
+  border-top:none;
+  background:linear-gradient(180deg,rgba(212,163,89,.05),rgba(23,21,19,.5));
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:22px 20px 24px;
+}
+.step b{
+  display:inline-block;font-family:'Cormorant Garamond',Georgia,serif;
+  font-size:1.6rem;font-weight:700;letter-spacing:0;color:var(--clay);
+  margin-bottom:4px;
+}
+.step:hover{border-color:rgba(212,163,89,.4);box-shadow:0 16px 36px -18px rgba(0,0,0,.6)}
+
+/* Cards & gallery items: subtle metallic border, luxury lift */
+.card,.gallery-item{border-color:var(--line)}
+.card:hover,.gallery-item:hover{border-color:rgba(212,163,89,.45)}
+
+/* ---------- click-to-zoom images (full screen view) ---------- */
+.card-image img,.gallery-item img,.about-image img,.hero-image img{cursor:zoom-in}
+
+/* The lightbox owns the entire viewport. Lock html + body as well so the
+   artwork never becomes part of the document's scrollable page. */
+html.lightbox-open,
+body.lightbox-open{
+  overflow:hidden !important;
+  overscroll-behavior:none !important;
+}
+
+.lightbox-overlay{
+  position:fixed !important;
+  inset:0 !important;
+  width:100vw !important;
+  height:100vh !important;
+  height:100dvh !important;
+  z-index:2147483647 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  overflow:hidden !important;
+  box-sizing:border-box !important;
+  padding:16px !important;
+  background:#0a0908 !important;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .3s ease,visibility 0s linear .3s;
+}
+.lightbox-overlay.open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transition:opacity .3s ease,visibility 0s linear 0s;
+}
+
+/* The full artwork must fit INSIDE the visible browser viewport.
+   Explicit viewport calculations prevent tall images from being clipped. */
+.lightbox-overlay img{
+  display:block !important;
+  flex:0 1 auto !important;
+  width:auto !important;
+  height:auto !important;
+  max-width:calc(100vw - 32px) !important;
+  max-height:calc(100dvh - 32px) !important;
+  object-fit:contain !important;
+  object-position:center center !important;
+  border:0 !important;
+  outline:0 !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+  -webkit-mask-image:none !important;
+  mask-image:none !important;
+  opacity:1 !important;
+  transform:scale(.98);
+  transition:transform .3s ease;
+}
+.lightbox-overlay.open img{transform:scale(1)}
+
+.lightbox-close{
+  position:absolute !important;
+  top:14px !important;
+  right:14px !important;
+  width:44px !important;
+  height:44px !important;
+  border-radius:50% !important;
+  background:rgba(0,0,0,.55) !important;
+  border:1px solid rgba(255,255,255,.35) !important;
+  color:#fff9ee !important;
+  font-size:1.4rem !important;
+  line-height:1 !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  cursor:pointer;
+  z-index:2;
+}
+.lightbox-close:hover{background:rgba(0,0,0,.75) !important}
+@media(max-width:640px){
+  .lightbox-overlay{padding:10px !important}
+  .lightbox-overlay img{
+    max-width:calc(100vw - 20px) !important;
+    max-height:calc(100dvh - 20px) !important;
+  }
+  .lightbox-close{top:8px !important;right:8px !important;width:40px !important;height:40px !important;font-size:1.2rem !important}
+}
+
+/* ---------- mobile-friendliness hardening ---------- */
+html,body{max-width:100%;overflow-x:hidden}
+img{max-width:100%}
+@media(max-width:640px){
+  .hero{padding:56px 0 44px}
+  section.pad{padding:52px 0}
+  .page-head{padding:52px 0 34px}
+  .cards{gap:14px}
+  .btn{padding:12px 18px;font-size:.85rem}
+  .hero-actions .btn,.cta .btn{width:100%;justify-content:center}
+}
+@media(max-width:400px){
+  .flower-banner{display:none}
+}
